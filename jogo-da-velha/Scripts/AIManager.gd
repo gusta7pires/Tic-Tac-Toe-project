@@ -8,6 +8,7 @@ var rng = RandomNumberGenerator.new()
 func easy_game(board, player):
 	var score;
 	var empty_cells = Common.get_empty_cells(board);
+	randomize();
 	var spot = randi() % empty_cells.size();
 	score = empty_cells[spot];
 	score[2] = player;

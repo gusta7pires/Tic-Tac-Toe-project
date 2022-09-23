@@ -1,33 +1,32 @@
 extends Node
 
+var go_first_screen;
 var board_manager;
-
 export var game_over_label_path: NodePath;
 var game_over_label;
+var game_over_screen;
 
 var board_size = 3;
 var board_state = [];
 
 var ai_manager;
 
-var player1 = -1;
-var player2 = 1;
-
+var human = -1;
+var computer = 1;
+var go_first;
 var current_player;
-signal on_player_change(player);
 
 var game_end;
-var game_over_screen;
-
 signal go_to_main_menu();
 
 func _ready():
+	go_first_screen = get_node("GoFirst");
 	board_manager = get_node("Tabuleiro");
 	game_over_label = get_node(game_over_label_path);
 	game_over_screen = get_node("GameOver");
 	ai_manager = get_node("AIManager");
 	create_board();
-	new_game();
+	show_go_first_screen();
 
 func create_board():
 	for x in range(board_size):
@@ -35,25 +34,30 @@ func create_board():
 		for _y in range(board_size):
 			board_state[x].append(0);
 	board_manager.append_board_nodes();
-	#print_board();
 
 func new_game():
+	go_first_screen.hide();
 	board_manager.show();
 	game_over_screen.hide();
-	current_player = player1;
-	emit_signal("on_player_change", current_player);
+	current_player = human;
 	game_end = false;
 	for line in range(board_size):
 		for column in range(board_size):
 			update_boards(line, column, 0);
-	#board_manager.reset_board();
-	print_board();
+	
+	if not go_first:
+		ai_move(computer);
+		go_first = true;
+
 
 func update_boards(line, column, player):
 	board_state[line][column] = player;
 	board_manager.board_nodes[line][column].set_player(player);
 
 func _on_Tabuleiro_on_node_clicked(line, column):
+	if game_end:
+		return;
+	
 	if Common.get_dificulty() == 3:
 		vs_player_move(line, column);
 	else:
@@ -62,22 +66,21 @@ func _on_Tabuleiro_on_node_clicked(line, column):
 func vs_player_move(line, column):
 	update_boards(line, column, current_player);
 	get_winner();
-	if(current_player == player1):
-		current_player = player2;
+	if(current_player == human):
+		current_player = computer;
 	else:
-		current_player = player1;
-	emit_signal("on_player_change", current_player, game_end);
+		current_player = human;
 
 func vs_cpu_move(line, column):
-	emit_signal("on_player_change", player1, game_end);
-	update_boards(line, column, player1);
-	get_winner();
+	if go_first == true:
+		player_move(line, column);
 	
 	if not game_end:
-		emit_signal("on_player_change", player2, game_end);
-		ai_move(player2);
-	
-	print_board();
+		ai_move(computer);
+
+func player_move(line, column):
+	update_boards(line, column, human);
+	get_winner();
 
 func ai_move(player):
 	var empty_cells = Common.get_empty_cells(board_state);
@@ -86,7 +89,9 @@ func ai_move(player):
 	var move = [];
 	
 	if depth == 9:
+		randomize();
 		var spot = randi() % empty_cells.size();
+		print("ALEATORIO ", spot);
 		move = empty_cells[spot];
 	else:
 		var dif = Common.get_dificulty();
@@ -107,7 +112,7 @@ func ai_move(player):
 func get_winner():
 	var winnig_player = Common.check_winner_posibilities(board_state);
 	
-	if(winnig_player == player1 or winnig_player == player2):
+	if(winnig_player == human or winnig_player == computer):
 		game_end = true;
 		current_player = winnig_player;
 		print("Jogador %d vanceu" % winnig_player);
@@ -127,13 +132,7 @@ func get_winner():
 		on_game_over();
 		return;
 
-func print_board():
-	for x in range(board_state.size()):
-		print(board_state[x])
-	print()
-
 func on_game_over():
-	board_manager.hide();
 	game_over_screen.show();
 
 func vs_player_winnig_text(player):
@@ -151,9 +150,31 @@ func vs_cpu_winning_text(player):
 	if(player == 1):
 		game_over_label.text = "You loose!";
 
+func game_mode_check():
+	if Common.get_dificulty() == 3:
+		new_game();
+	else:
+		show_go_first_screen();
+
+func show_go_first_screen():
+	go_first_screen.show();
+	board_manager.hide();
+	game_over_screen.hide();
+
 func _on_PlayAgain_pressed():
-	new_game();
+	game_mode_check();
 
 func _on_MainMenu_pressed():
-	new_game();
 	emit_signal("go_to_main_menu");
+
+func _on_Yes_pressed():
+	go_first = true;
+	new_game();
+
+func _on_No_pressed():
+	go_first = false;
+	new_game();
+
+
+func _on_SetDificulty_on_dificulty_set():
+	game_mode_check();

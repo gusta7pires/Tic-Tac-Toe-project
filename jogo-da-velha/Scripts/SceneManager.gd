@@ -3,18 +3,16 @@ extends Node
 export var menu_path: NodePath;
 export var set_dificulty_path: NodePath;
 export var game_path: NodePath;
-export var game_over_path: NodePath;
 
 var menu;
 var set_dificulty;
 var game;
-var game_over;
 
 func _ready():
 	menu = get_node(menu_path);
 	set_dificulty = get_node(set_dificulty_path);
 	game = get_node(game_path);
-	game_over = get_node(game_over_path);
+	#game_over = get_node(game_over_path);
 	
 	main_menu();
 
@@ -31,6 +29,7 @@ func set_dificulty():
 func start_game():
 	menu.hide();
 	set_dificulty.hide();
+	game.new_game();
 	game.show();
 
 func game_over():

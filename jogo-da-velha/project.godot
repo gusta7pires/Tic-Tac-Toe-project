@@ -14,6 +14,11 @@ config/name="jogo-da-velha"
 run/main_scene="res://Cenas/Main.tscn"
 config/icon="res://icon.png"
 
+[audio]
+
+default_bus_layout="res://Audio/default_bus_layout.tres"
+enable_audio_input=true
+
 [autoload]
 
 Common="*res://Scripts/Common.gd"

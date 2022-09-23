@@ -21,7 +21,6 @@ func get_player():
 
 func set_player(player):
 	player_marker = player;
-	
 	sprite.texture = player_textures[player];
 
 func set_board(board, line, columm): #chamado no BoardManager
