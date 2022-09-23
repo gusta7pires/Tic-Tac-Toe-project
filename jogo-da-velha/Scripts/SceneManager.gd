@@ -12,7 +12,6 @@ func _ready():
 	menu = get_node(menu_path);
 	set_dificulty = get_node(set_dificulty_path);
 	game = get_node(game_path);
-	#game_over = get_node(game_over_path);
 	
 	main_menu();
 

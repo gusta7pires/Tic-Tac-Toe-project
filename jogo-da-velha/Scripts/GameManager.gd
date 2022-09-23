@@ -91,7 +91,6 @@ func ai_move(player):
 	if depth == 9:
 		randomize();
 		var spot = randi() % empty_cells.size();
-		print("ALEATORIO ", spot);
 		move = empty_cells[spot];
 	else:
 		var dif = Common.get_dificulty();
@@ -162,19 +161,22 @@ func show_go_first_screen():
 	game_over_screen.hide();
 
 func _on_PlayAgain_pressed():
+	$SoundClick.play();
 	game_mode_check();
 
 func _on_MainMenu_pressed():
+	$SoundClick.play();
 	emit_signal("go_to_main_menu");
 
 func _on_Yes_pressed():
 	go_first = true;
+	$SoundClick.play();
 	new_game();
 
 func _on_No_pressed():
 	go_first = false;
+	$SoundClick.play();
 	new_game();
-
 
 func _on_SetDificulty_on_dificulty_set():
 	game_mode_check();

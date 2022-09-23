@@ -19,7 +19,7 @@ func append_board_nodes():
 
 func node_clicked(line, column):
 	if (board_nodes[line][column].get_player() != 0):
-		
+		$SoundWrongClick.play();
 		return;
 	
 	emit_signal("on_node_clicked", line, column);

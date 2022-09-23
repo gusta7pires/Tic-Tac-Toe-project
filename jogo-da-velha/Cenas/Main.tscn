@@ -3,7 +3,7 @@
 [ext_resource path="res://Prefabs/MainMenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Prefabs/SetDificulty.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Game.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Audio/Music/TikTak.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audio/Music/tiktaktoe_3.wav" type="AudioStream" id=4]
 [ext_resource path="res://Prefabs/bg.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/SceneManager.gd" type="Script" id=8]
 
@@ -18,9 +18,9 @@ set_dificulty_path = NodePath("../SetDificulty")
 game_path = NodePath("../Game")
 
 [node name="MainMenu" parent="." instance=ExtResource( 1 )]
+visible = false
 
 [node name="SetDificulty" parent="." instance=ExtResource( 2 )]
-visible = false
 
 [node name="Game" parent="." instance=ExtResource( 3 )]
 visible = false
