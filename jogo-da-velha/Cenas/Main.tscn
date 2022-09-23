@@ -18,9 +18,9 @@ set_dificulty_path = NodePath("../SetDificulty")
 game_path = NodePath("../Game")
 
 [node name="MainMenu" parent="." instance=ExtResource( 1 )]
-visible = false
 
 [node name="SetDificulty" parent="." instance=ExtResource( 2 )]
+visible = false
 
 [node name="Game" parent="." instance=ExtResource( 3 )]
 visible = false

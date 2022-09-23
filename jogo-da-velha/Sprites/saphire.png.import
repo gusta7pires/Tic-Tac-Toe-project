@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gui_paper.png-6947e73052cc86117859cacf6ed0f8e3.stex"
+path="res://.import/saphire.png-28b839bb5e7ba5b85bf1650a2adab8d2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/gui_paper.png"
-dest_files=[ "res://.import/gui_paper.png-6947e73052cc86117859cacf6ed0f8e3.stex" ]
+source_file="res://Sprites/saphire.png"
+dest_files=[ "res://.import/saphire.png-28b839bb5e7ba5b85bf1650a2adab8d2.stex" ]
 
 [params]
 
