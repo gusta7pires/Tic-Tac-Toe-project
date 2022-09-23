@@ -3,8 +3,6 @@ extends Node
 var human = -1;
 var computer = 1;
 
-var rng = RandomNumberGenerator.new()
-
 func easy_game(board, player):
 	var score;
 	var empty_cells = Common.get_empty_cells(board);
@@ -16,7 +14,9 @@ func easy_game(board, player):
 
 func medium_game(board, depth, player):
 	var score = [0,0,player]
-	if(rng.randi() % 100 < 30):
+	randomize();
+	var rng = randi() % 100;
+	if(rng < 30):
 		score = easy_game(board, player);
 	else:
 		score = minimax(board, depth, player);
@@ -25,12 +25,6 @@ func medium_game(board, depth, player):
 func minimax(board, depth, player):
 	var empty_cells = Common.get_empty_cells(board);
 	
-	var best;
-	if player == computer:
-		best = [-1,-1,-999]
-	else:
-		best = [-1,-1, 999]
-	
 	var winner = Common.check_winner_posibilities(board);
 	
 	if winner != 0:
@@ -38,6 +32,12 @@ func minimax(board, depth, player):
 		return [-1, -1, winner * weight];
 	elif depth == 0:
 		return [-1 , -1, 0];
+	
+	var best;
+	if player == computer:
+		best = [-1,-1,-999]
+	else:
+		best = [-1,-1, 999]
 	
 	for cell in range (empty_cells.size()):
 		var chosen_cell = empty_cells[cell];

@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Sprites/grade.png" type="Texture" id=1]
 [ext_resource path="res://Prefabs/SoundEfx.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Prefabs/bg.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Font/Toriko_font_64.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Font/Toriko_font_32.tres" type="DynamicFont" id=5]
 [ext_resource path="res://Prefabs/BoardPosition.tscn" type="PackedScene" id=6]
@@ -13,22 +12,20 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 7 )
-game_over_label_path = NodePath("GameOver/WinnerText")
+game_over_label_path = NodePath("GameOverScreen/WinnerText")
 
-[node name="bg" parent="." instance=ExtResource( 3 )]
-
-[node name="GoFirst" type="Control" parent="."]
+[node name="GoFirstScreen" type="Control" parent="."]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GoFirst"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GoFirstScreen"]
 margin_left = 410.0
 margin_top = 262.0
 margin_right = 590.0
 margin_bottom = 412.0
 
-[node name="Yes" type="Button" parent="GoFirst/VBoxContainer"]
+[node name="Yes" type="Button" parent="GoFirstScreen/VBoxContainer"]
 margin_top = 21.0
 margin_right = 180.0
 margin_bottom = 51.0
@@ -36,7 +33,7 @@ size_flags_vertical = 6
 custom_fonts/font = ExtResource( 5 )
 text = "Yes"
 
-[node name="No" type="Button" parent="GoFirst/VBoxContainer"]
+[node name="No" type="Button" parent="GoFirstScreen/VBoxContainer"]
 margin_top = 98.0
 margin_right = 180.0
 margin_bottom = 128.0
@@ -44,7 +41,7 @@ size_flags_vertical = 6
 custom_fonts/font = ExtResource( 5 )
 text = "No"
 
-[node name="QuestionText" type="Label" parent="GoFirst"]
+[node name="QuestionText" type="Label" parent="GoFirstScreen"]
 margin_left = 353.0
 margin_top = 183.0
 margin_right = 653.0
@@ -54,57 +51,62 @@ text = "Go first?"
 align = 1
 valign = 1
 
-[node name="Tabuleiro" type="Node2D" parent="."]
+[node name="Board" type="Node2D" parent="."]
 script = ExtResource( 10 )
 game_manager_path = NodePath("..")
 
-[node name="0-0" parent="Tabuleiro" instance=ExtResource( 6 )]
+[node name="0-0" parent="Board" instance=ExtResource( 6 )]
 position = Vector2( 393, 172 )
 
-[node name="0-1" parent="Tabuleiro" instance=ExtResource( 6 )]
+[node name="0-1" parent="Board" instance=ExtResource( 6 )]
 position = Vector2( 500, 173 )
 
-[node name="0-2" parent="Tabuleiro" instance=ExtResource( 6 )]
+[node name="0-2" parent="Board" instance=ExtResource( 6 )]
 position = Vector2( 607, 173 )
 
-[node name="1-0" parent="Tabuleiro" instance=ExtResource( 6 )]
+[node name="1-0" parent="Board" instance=ExtResource( 6 )]
 position = Vector2( 394, 277 )
 
-[node name="1-1" parent="Tabuleiro" instance=ExtResource( 6 )]
+[node name="1-1" parent="Board" instance=ExtResource( 6 )]
 position = Vector2( 500, 278 )
 
-[node name="1-2" parent="Tabuleiro" instance=ExtResource( 6 )]
+[node name="1-2" parent="Board" instance=ExtResource( 6 )]
 position = Vector2( 608, 278 )
 
-[node name="2-0" parent="Tabuleiro" instance=ExtResource( 6 )]
+[node name="2-0" parent="Board" instance=ExtResource( 6 )]
 position = Vector2( 395, 383 )
 
-[node name="2-1" parent="Tabuleiro" instance=ExtResource( 6 )]
+[node name="2-1" parent="Board" instance=ExtResource( 6 )]
 position = Vector2( 501, 383 )
 
-[node name="2-2" parent="Tabuleiro" instance=ExtResource( 6 )]
+[node name="2-2" parent="Board" instance=ExtResource( 6 )]
 position = Vector2( 608, 383 )
 
-[node name="Board" type="Sprite" parent="Tabuleiro"]
+[node name="Board" type="Sprite" parent="Board"]
 position = Vector2( 512, 307 )
 scale = Vector2( 1.09333, 1.09333 )
 texture = ExtResource( 1 )
 
-[node name="SoundWrongClick" parent="Tabuleiro" instance=ExtResource( 2 )]
+[node name="SoundWrongClick" parent="Board" instance=ExtResource( 2 )]
 stream = ExtResource( 8 )
 
-[node name="GameOver" type="Control" parent="."]
+[node name="GameOverScreen" type="Control" parent="."]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+[node name="Panel" type="Panel" parent="GameOverScreen"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverScreen"]
 margin_left = 409.0
 margin_top = 261.0
 margin_right = 589.0
 margin_bottom = 411.0
 
-[node name="PlayAgain" type="Button" parent="GameOver/VBoxContainer"]
+[node name="PlayAgain" type="Button" parent="GameOverScreen/VBoxContainer"]
 margin_top = 21.0
 margin_right = 180.0
 margin_bottom = 51.0
@@ -112,7 +114,7 @@ size_flags_vertical = 6
 custom_fonts/font = ExtResource( 5 )
 text = "Play Again"
 
-[node name="MainMenu" type="Button" parent="GameOver/VBoxContainer"]
+[node name="MainMenu" type="Button" parent="GameOverScreen/VBoxContainer"]
 margin_top = 98.0
 margin_right = 180.0
 margin_bottom = 128.0
@@ -120,7 +122,7 @@ size_flags_vertical = 6
 custom_fonts/font = ExtResource( 5 )
 text = "Main Menu"
 
-[node name="WinnerText" type="Label" parent="GameOver"]
+[node name="WinnerText" type="Label" parent="GameOverScreen"]
 margin_left = 355.0
 margin_top = 176.0
 margin_right = 655.0
@@ -135,8 +137,8 @@ script = ExtResource( 9 )
 
 [node name="SoundClick" parent="." instance=ExtResource( 2 )]
 
-[connection signal="pressed" from="GoFirst/VBoxContainer/Yes" to="." method="_on_Yes_pressed"]
-[connection signal="pressed" from="GoFirst/VBoxContainer/No" to="." method="_on_No_pressed"]
-[connection signal="on_node_clicked" from="Tabuleiro" to="." method="_on_Tabuleiro_on_node_clicked"]
-[connection signal="pressed" from="GameOver/VBoxContainer/PlayAgain" to="." method="_on_PlayAgain_pressed"]
-[connection signal="pressed" from="GameOver/VBoxContainer/MainMenu" to="." method="_on_MainMenu_pressed"]
+[connection signal="pressed" from="GoFirstScreen/VBoxContainer/Yes" to="." method="_on_Yes_pressed"]
+[connection signal="pressed" from="GoFirstScreen/VBoxContainer/No" to="." method="_on_No_pressed"]
+[connection signal="on_node_clicked" from="Board" to="." method="_on_Board_on_node_clicked"]
+[connection signal="pressed" from="GameOverScreen/VBoxContainer/PlayAgain" to="." method="_on_PlayAgain_pressed"]
+[connection signal="pressed" from="GameOverScreen/VBoxContainer/MainMenu" to="." method="_on_MainMenu_pressed"]

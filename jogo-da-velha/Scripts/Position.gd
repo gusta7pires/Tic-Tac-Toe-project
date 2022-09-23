@@ -23,7 +23,7 @@ func set_player(player):
 	player_marker = player;
 	sprite.texture = player_textures[player];
 
-func set_board(board, line, columm): #chamado no BoardManager
+func set_board(board, line, columm):
 	self.board = board;
 	pos_line = line;
 	pos_columm = columm;

@@ -20,10 +20,10 @@ var game_end;
 signal go_to_main_menu();
 
 func _ready():
-	go_first_screen = get_node("GoFirst");
-	board_manager = get_node("Tabuleiro");
+	go_first_screen = get_node("GoFirstScreen");
+	board_manager = get_node("Board");
 	game_over_label = get_node(game_over_label_path);
-	game_over_screen = get_node("GameOver");
+	game_over_screen = get_node("GameOverScreen");
 	ai_manager = get_node("AIManager");
 	create_board();
 	show_go_first_screen();
@@ -49,12 +49,11 @@ func new_game():
 		ai_move(computer);
 		go_first = true;
 
-
 func update_boards(line, column, player):
 	board_state[line][column] = player;
 	board_manager.board_nodes[line][column].set_player(player);
 
-func _on_Tabuleiro_on_node_clicked(line, column):
+func _on_Board_on_node_clicked(line, column):
 	if game_end:
 		return;
 	
@@ -102,9 +101,6 @@ func ai_move(player):
 			2:
 				move = ai_manager.minimax(board_state, depth, player);
 	
-	print(move);
-	print();
-	
 	update_boards(move[0], move[1], player);
 	get_winner();
 
@@ -113,8 +109,6 @@ func get_winner():
 	
 	if(winnig_player == human or winnig_player == computer):
 		game_end = true;
-		current_player = winnig_player;
-		print("Jogador %d vanceu" % winnig_player);
 		
 		if Common.get_dificulty() == 3:
 			vs_player_winnig_text(winnig_player);
@@ -126,7 +120,6 @@ func get_winner():
 	
 	if(Common.check_empty_positions(board_state)==0):
 		game_end = true;
-		print("Deu Velha!");
 		game_over_label.text = "Draw";
 		on_game_over();
 		return;
@@ -135,9 +128,9 @@ func on_game_over():
 	game_over_screen.show();
 
 func vs_player_winnig_text(player):
-	if player == -1:
+	if player == human:
 		player = 1;
-	elif player == 1:
+	elif player == computer:
 		player = 2;
 	var string = "Player %d win!" % player;
 	game_over_label.text = string;
@@ -161,22 +154,25 @@ func show_go_first_screen():
 	game_over_screen.hide();
 
 func _on_PlayAgain_pressed():
-	$SoundClick.play();
+	play_click_sound();
 	game_mode_check();
 
 func _on_MainMenu_pressed():
-	$SoundClick.play();
+	play_click_sound();
 	emit_signal("go_to_main_menu");
 
 func _on_Yes_pressed():
 	go_first = true;
-	$SoundClick.play();
+	play_click_sound();
 	new_game();
 
 func _on_No_pressed():
 	go_first = false;
-	$SoundClick.play();
+	play_click_sound();
 	new_game();
 
 func _on_SetDificulty_on_dificulty_set():
 	game_mode_check();
+
+func play_click_sound():
+	get_node("SoundClick").play();

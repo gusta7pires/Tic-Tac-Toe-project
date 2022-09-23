@@ -4,37 +4,37 @@ export var menu_path: NodePath;
 export var set_dificulty_path: NodePath;
 export var game_path: NodePath;
 
-var menu;
-var set_dificulty;
-var game;
+var menu_screen;
+var set_dificulty_screen;
+var game_screen;
 
 func _ready():
-	menu = get_node(menu_path);
-	set_dificulty = get_node(set_dificulty_path);
-	game = get_node(game_path);
+	menu_screen = get_node(menu_path);
+	set_dificulty_screen = get_node(set_dificulty_path);
+	game_screen = get_node(game_path);
 	
 	main_menu();
 
 func main_menu():
-	menu.show();
-	set_dificulty.hide();
-	game.hide();
+	menu_screen.show();
+	set_dificulty_screen.hide();
+	game_screen.hide();
 
 func set_dificulty():
-	menu.hide();
-	set_dificulty.show();
-	game.hide();
+	menu_screen.hide();
+	set_dificulty_screen.show();
+	game_screen.hide();
 
 func start_game():
-	menu.hide();
-	set_dificulty.hide();
-	game.new_game();
-	game.show();
+	menu_screen.hide();
+	set_dificulty_screen.hide();
+	game_screen.new_game();
+	game_screen.show();
 
 func game_over():
-	menu.hide();
-	set_dificulty.hide();
-	game.hide();
+	menu_screen.hide();
+	set_dificulty_screen.hide();
+	game_screen.hide();
 
 func _on_MainMenu_on_start():
 	set_dificulty();

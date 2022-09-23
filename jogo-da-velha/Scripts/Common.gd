@@ -1,6 +1,7 @@
 extends Node
 
 var dificulty : int;
+# 0 = easy, 1 = medium, 2 = hard, 3 = vs player
 
 func _ready():
 	dificulty = 3;
@@ -9,11 +10,10 @@ func get_dificulty():
 	return dificulty;
 
 func set_dificulty(dificulty):
-	self.dificulty = dificulty
-	print("Dificulty changed ", self.dificulty);
+	self.dificulty = dificulty;
 
 func get_empty_cells(board):
-	var empty_cells = []
+	var empty_cells = [];
 	for line in range (board.size()):
 		for column in range (board.size()):
 			if(board[line][column]==0):
