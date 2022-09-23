@@ -100,7 +100,6 @@ func ai_move(player):
 				move = ai_manager.medium_game(board_state, depth, player);
 			2:
 				move = ai_manager.minimax(board_state, depth, player);
-	
 	update_boards(move[0], move[1], player);
 	get_winner();
 

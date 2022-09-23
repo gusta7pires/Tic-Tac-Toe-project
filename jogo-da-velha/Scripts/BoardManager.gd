@@ -21,7 +21,7 @@ func node_clicked(line, column):
 	if (board_nodes[line][column].get_player() != 0):
 		get_node("SoundWrongClick").play();
 		return;
-	
+	get_node("SoundJewel").play();
 	emit_signal("on_node_clicked", line, column);
 
 func set_node(line, column, player):
